@@ -11,6 +11,8 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'bcrypt', '~> 3.1.5'
 
+gem 'carrierwave'
+
 group :development, :test do
   gem 'spring'
   gem 'byebug'

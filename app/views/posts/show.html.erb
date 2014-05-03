@@ -13,6 +13,17 @@
     <div id="content">
       <p><%= @post.content %></p>
     </div>
+    <% if @post.asset.present? %>
+      <h3>Attached File</h3>
+      <div id="asset">
+        <p>
+          <%= link_to File.basename(@post.asset.path),
+                       @post.asset.url %>
+        </p>
+        <p><small><%= number_to_human_size(@post.asset.size) %>
+         </small></p>
+      </div>
+    <% end %>
     <div id="comment">
       <% @post.comments.each do |comment| %>
         <p><%= link_to comment.author, post_comment_path(@post, comment) %> says <%= comment.content %></p>

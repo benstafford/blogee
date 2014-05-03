@@ -59,4 +59,28 @@ feature 'Creating posts' do
     # assert that we are getting the error flash
     expect(page).to have_css('.alert.alert-error')
   end
+
+  scenario "Creating a post with an attachment" do
+    visit posts_path
+    click_link 'New Post'
+
+    ### IF YOU HAVE Authentication in place
+    fill_in "Username", with: @user.username
+    fill_in "Password", with: @user.password
+    click_button "Sign in"
+    click_link 'New Post'
+    ### END if authentication in place
+
+    fill_in 'Title', with: 'My First Post'
+    fill_in 'Content', with: 'Lorem ipsum dolor sit amet.'
+
+    attach_file "File", "spec/fixtures/mogester1.jpg"
+    click_button "Save"
+
+    expect(page).to have_content("My First Post")
+
+    within("#asset") do
+      expect(page).to have_content("mogester1.jpg")
+    end
+  end
 end
